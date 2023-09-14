@@ -1,0 +1,2 @@
+path,s_c,min_d,p_min,ew,ppl,f
+orange_stripes_test.jpg,0,8,0.5,4,20,0
