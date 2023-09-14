@@ -18,6 +18,20 @@ import pandas as pd
 
 #define functions
 def cont_obj_det(mask,min_d,x_len):
+
+    """
+    Identify connected objects in a binary mask.
+
+    Args:
+        mask (numpy.ndarray): The binary mask to analyze.
+        min_d (int): Maximum pixel separation to count as the same object.
+        x_len (int): Length of the mask in the x-direction.
+
+    Returns:
+        x_ls (list): List of x-coordinates of identified objects.
+        y_ls (list): List of y-coordinates of identified objects.
+    """
+    
     x_ls=[]
     y_ls=[]
     
@@ -55,6 +69,19 @@ def cont_obj_det(mask,min_d,x_len):
 
 
 def scrub(mask,x_ls,y_ls):
+    
+    """
+    Remove identified objects from a binary mask.
+
+    Args:
+        mask (numpy.ndarray): The binary mask to modify.
+        x_ls (list): List of x-coordinates of objects to be removed.
+        y_ls (list): List of y-coordinates of objects to be removed.
+
+    Returns:
+        mask_scrubbed (numpy.ndarray): The modified binary mask.
+    """
+    
     mask_scrubbed=mask
     c=0
     while c < len(x_ls):
@@ -67,6 +94,20 @@ def scrub(mask,x_ls,y_ls):
 
 
 def average_stripe(x_ls,y_ls,ppl,ew):
+    
+    """
+    Calculate the average coordinates of stripes.
+
+    Args:
+        x_ls (list): List of x-coordinates of stripe pixels.
+        y_ls (list): List of y-coordinates of stripe pixels.
+        ppl (int): Points per line.
+        ew (int): Distance from ends of stripe to start and end points.
+
+    Returns:
+        x_ls_avg (list): List of averaged x-coordinates.
+        y_ls_avg (list): List of averaged y-coordinates.
+    """
     
     x_ls_avg=[]
     y_ls_avg=[]
@@ -105,6 +146,22 @@ def average_stripe(x_ls,y_ls,ppl,ew):
 
 
 def linear_draft_analysis(x_ls,y_ls,img,col):
+    
+    """
+    Analyze sail shape and calculate camber, draft, and twist.
+
+    Args:
+        x_ls (list): List of x-coordinates of stripe pixels.
+        y_ls (list): List of y-coordinates of stripe pixels.
+        img (numpy.ndarray): The sail image.
+        col (str): Color for plotting.
+
+    Returns:
+        chord (float): The sail's chord length.
+        draft_len (float): The length of the draft.
+        m_chord (float): The slope of the chord line.
+    """
+    
     chord=((x_ls[0]-x_ls[-1])**2+(y_ls[0]-y_ls[-1])**2)**.5
     draft_len=0
     c=0
